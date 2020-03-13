@@ -4,31 +4,30 @@ namespace controllers;
 
 class RegisterController extends \libs\Controller
 {
-
-    public function showForm()
+    public function showRegisterForm()
     {
         $this->viewObj('register\register');
-        $session = new \libs\Session();
         $this->view->pageTitle = 'Register';
-        $this->view->token = $session->setToken();
-        $this->view->s = $session->sessionExists('token');
+        $this->view->token = \libs\Session::setToken();
+        $this->view->data['username'] = \libs\Validation::getInputValue('username');
         $this->view->render();
     }
 
     public function register()
     {
-        $session = new \libs\Session();
         $userModel = $this->modelObj('\models\User');
         $this->viewObj('register\register');
 
-        $username = trim($_POST['username']);
-        $password = trim($_POST['password']);
+        $input = \libs\Validation::escapeInput($_POST);
+
+        $username = $input['username'];
+        $password = $input['password'];
 
         $validation = new \libs\Validation;
         $validation->checkInput();
 
-        if ($validation->isPermitted()) {
-            if ($session->isTokenValid()) {
+        if ($validation->isInputValid()) {
+            if ($validation->isTokenValid()) {
                 $userModel->addUser([
                     $userModel::USERNAME => $username,
                     $userModel::PASSWORD => $password
@@ -38,8 +37,9 @@ class RegisterController extends \libs\Controller
             $this->view->data['errors'] = $validation->getErrors();
         }
 
+        $this->view->data['username'] = \libs\Validation::getInputValue('username');
         $this->view->pageTitle = 'Register';
-        $this->view->token = $session->setToken();
+        $this->view->token = \libs\Session::setToken();
         $this->view->render();
     }
 }

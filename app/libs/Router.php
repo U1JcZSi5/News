@@ -10,11 +10,21 @@ class Router
             'register' => [
                 'GET' => [
                     'controller' => 'RegisterController',
-                    'action' => 'showForm'
+                    'action' => 'showRegisterForm'
                 ],
                 'POST' => [
                     'controller' => 'RegisterController',
                     'action' => 'register'
+                ]
+            ],
+            'login' => [
+                'GET' => [
+                    'controller' => 'LoginController',
+                    'action' => 'showLoginForm'
+                ],
+                'POST' => [
+                    'controller' => 'LoginController',
+                    'action' => 'login'
                 ]
             ]
         ];

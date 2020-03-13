@@ -47,7 +47,6 @@ class App
     public function startApp()
     {
         $this->controller = new $this->controller;
-        // call method from controller
         call_user_func_array([$this->controller, $this->action], $this->params);
     }
 }

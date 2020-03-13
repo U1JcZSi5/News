@@ -17,7 +17,7 @@ class User extends \libs\Database
 
     public function getByUsername($username)
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME, [self::USERNAME => $username]);
+        return $this->select_or_delete('SELECT *', self::TABLENAME, [self::USERNAME => $username])->results;
     }
 
     public function getById($id)

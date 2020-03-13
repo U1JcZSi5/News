@@ -4,7 +4,6 @@ namespace libs;
 
 class Controller
 {
-
     protected $view;
 
     public function modelObj($modelName)

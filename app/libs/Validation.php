@@ -4,16 +4,16 @@ namespace libs;
 
 class Validation
 {
+    private const TOKEN = 'token';
     private $errors = [];
     private $permitted = false;
 
-    // Add error messages and set $permited
     public function checkInput()
     {
         if (isset($_POST['register_btn'])) {
             foreach ($_POST as $item => $value) {
                 if (empty($value)) {
-                    $this->errors[] = $item . ' canot be empty';
+                    $this->errors[] = 'You need to fill ' . $item;
                 }
             }
         }
@@ -25,17 +25,39 @@ class Validation
         return $this;
     }
 
-    public static function getPostValues($value)
+    public static function escapeInput($data = [])
+    {
+        $results = [];
+        foreach ($data as $item => $value) {
+            $results[$item] = htmlentities(trim($value), ENT_QUOTES, 'UTF-8');
+        }
+
+        return $results;
+    }
+
+    public function isInputValid()
+    {
+        return $this->permitted;
+    }
+
+    public function isTokenValid()
+    {
+        if (
+            \libs\Session::sessionExists(self::TOKEN)
+            && \libs\Session::getSession(self::TOKEN) == $this->getInputValue(self::TOKEN)
+        ) {
+            \libs\Session::deleteSession(self::TOKEN);
+            return true;
+        }
+        return false;
+    }
+
+    public static function getInputValue($value)
     {
         if (isset($_POST[$value])) {
             return $_POST[$value];
         }
         return '';
-    }
-
-    public function isPermitted()
-    {
-        return $this->permitted;
     }
 
     public function getErrors()
