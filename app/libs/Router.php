@@ -7,7 +7,7 @@ class Router
     public static function getRoute()
     {
         $routes = [
-            'login' => [
+            'register' => [
                 'GET' => [
                     'controller' => 'RegisterController',
                     'action' => 'showForm'

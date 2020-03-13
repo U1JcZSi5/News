@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Define paths
 define('DS', DIRECTORY_SEPARATOR);
@@ -9,7 +10,7 @@ define('MODELS', ROOT . DS . 'app' . DS . 'models' . DS);
 define('VIEWS', ROOT . DS . 'app' . DS . 'views' . DS);
 define('LIBS', ROOT . DS . 'app' . DS . 'libs' . DS);
 // URL
-define('BASE_URL', 'http://localhost/Assignment/');
+define('BASE_URL', 'http://localhost/news/public/index.php?');
 
 /* AUTOLOAD CLASSES
 namespaces need to be named same as folders classes are in */
