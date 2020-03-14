@@ -2,5 +2,5 @@
 
 function dd($value)
 {
-    echo "<pre>", print_r($value, true), "</pre>";
+    echo "<pre>", var_dump($value), "</pre>";
 }

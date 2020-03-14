@@ -10,6 +10,7 @@ class RegisterController extends \libs\Controller
         $this->view->pageTitle = 'Register';
         $this->view->token = \libs\Session::setToken();
         $this->view->data['username'] = \libs\Validation::getInputValue('username');
+        $this->view->data['email'] = \libs\Validation::getInputValue('email');
         $this->view->render();
     }
 
@@ -17,27 +18,37 @@ class RegisterController extends \libs\Controller
     {
         $userModel = $this->modelObj('\models\User');
         $this->viewObj('register\register');
+        $authentication = new \libs\Authentication($userModel);
+        $validation = new \libs\Validation;
 
-        $input = \libs\Validation::escapeInput($_POST);
+        $input = $validation->escapeInput($_POST);
 
         $username = $input['username'];
-        $password = $input['password'];
+        $password = password_hash($input['password'], PASSWORD_DEFAULT);
+        $email = $input['email'];
 
-        $validation = new \libs\Validation;
         $validation->checkInput();
 
         if ($validation->isInputValid()) {
             if ($validation->isTokenValid()) {
-                $userModel->addUser([
-                    $userModel::USERNAME => $username,
-                    $userModel::PASSWORD => $password
-                ]);
+                if (!$authentication->userAlreadyExists($username)) {
+                    $userModel->addUser([
+                        $userModel::USERNAME => $username,
+                        $userModel::PASSWORD => $password,
+                        $userModel::EMAIL => $email
+                    ]);
+
+                    header('location: ' . BASE_URL);
+                } else {
+                    $this->view->data['errors'] = $authentication->getErrors();
+                }
             }
         } else {
             $this->view->data['errors'] = $validation->getErrors();
         }
 
         $this->view->data['username'] = \libs\Validation::getInputValue('username');
+        $this->view->data['email'] = \libs\Validation::getInputValue('email');
         $this->view->pageTitle = 'Register';
         $this->view->token = \libs\Session::setToken();
         $this->view->render();

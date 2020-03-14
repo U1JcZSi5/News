@@ -8,8 +8,8 @@ class User extends \libs\Database
     const PRIMARY_KEY = 'user_id';
     const USERNAME = 'username';
     const PASSWORD = 'password';
+    const EMAIL = 'email';
 
-    // SELECT USERS
     public function getUsers()
     {
         return $this->select_or_delete('SELECT *', self::TABLENAME);
@@ -25,19 +25,16 @@ class User extends \libs\Database
         return $this->select_or_delete('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id])->getResults()[0];
     }
 
-    // DELETE USER
     public function deleteUser($conditions)
     {
         $this->select_or_delete('DELETE', self::TABLENAME, $conditions);
     }
 
-    // ADD USER
     public function addUser($data)
     {
         $this->add(self::TABLENAME, $data);
     }
 
-    // UPDATE USER
     public function updateById($id, $data)
     {
         $this->update(self::TABLENAME, self::PRIMARY_KEY, $id, $data);

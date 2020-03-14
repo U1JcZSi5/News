@@ -7,6 +7,12 @@ class Router
     public static function getRoute()
     {
         $routes = [
+            'home' => [
+                'GET' => [
+                    'controller' => 'HomeController',
+                    'action' => 'index'
+                ],
+            ],
             'register' => [
                 'GET' => [
                     'controller' => 'RegisterController',
@@ -26,6 +32,12 @@ class Router
                     'controller' => 'LoginController',
                     'action' => 'login'
                 ]
+            ],
+            'logout' => [
+                'GET' => [
+                    'controller' => 'LoginController',
+                    'action' => 'logout'
+                ],
             ]
         ];
 

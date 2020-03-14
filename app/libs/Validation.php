@@ -21,17 +21,15 @@ class Validation
         if (!$this->errors) {
             $this->permitted = true;
         }
-
         return $this;
     }
 
-    public static function escapeInput($data = [])
+    public function escapeInput($data = [])
     {
         $results = [];
         foreach ($data as $item => $value) {
             $results[$item] = htmlentities(trim($value), ENT_QUOTES, 'UTF-8');
         }
-
         return $results;
     }
 

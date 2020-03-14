@@ -5,13 +5,15 @@ namespace libs;
 class App
 {
     private $request_method;
+    private $route;
     protected $controller;
     protected $action;
     protected $params = [];
 
-    public function __construct($request_method)
+    public function __construct($request_method, $route)
     {
         $this->request_method = $request_method;
+        $this->route = $route;
         $this->setController();
         $this->setAction();
         $this->setParams();
@@ -19,15 +21,15 @@ class App
 
     private function setController()
     {
-        if (isset($_GET['route'])) {
-            $this->controller = '\controllers\\' . Router::getRoute()[$_GET['route']][$this->request_method]['controller'];
+        if (isset($this->route)) {
+            $this->controller = '\controllers\\' . Router::getRoute()[$this->route][$this->request_method]['controller'];
         }
     }
 
     private function setAction()
     {
-        if (isset($_GET['route'])) {
-            $this->action = Router::getRoute()[$_GET['route']][$this->request_method]['action'];
+        if (isset($this->route)) {
+            $this->action = Router::getRoute()[$this->route][$this->request_method]['action'];
         }
     }
 
