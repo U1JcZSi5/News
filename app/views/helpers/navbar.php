@@ -8,7 +8,8 @@
                 </a>
                 <ul>
                     <?php if (\libs\Session::sessionExists('admin')) : ?>
-                        <li><a href="<?php echo BASE_URL . 'route=dashboard' ?>">Dashboard</a></li>
+                        <li><a href="<?php echo BASE_URL . 'route=dashboard&list=users' ?>">Dashboard</a></li>
+                        <li><a href="<?php echo BASE_URL . 'route=addnews' ?>">Post News</a></li>
                     <?php endif; ?>
                     <li><a href="<?php echo BASE_URL . 'route=logout' ?>" class="logout">Logout</a></li>
                 </ul>

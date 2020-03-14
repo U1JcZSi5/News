@@ -20,15 +20,14 @@ class SingleController extends \libs\Controller
                 ) {
                     $commentsModel->deleteComment($comment_id);
                 }
+            } else {
+                http_response_code(404);
+                include(VIEWS . 'error/error.php');
+                die();
             }
         }
 
-        $this->view->data['news'] = $newsModel->getById($id)->getResults();
-        $this->view->data['comments'] = $commentsModel->getCommentsByNewsId($id)->getResults();
-        $this->view->token = \libs\Session::setToken();
-
-        $this->view->pageTitle = 'SingleNews';
-        $this->view->render();
+        $this->setViewData($id, $newsModel, $commentsModel);
     }
 
     public function comment($id = null)
@@ -62,10 +61,15 @@ class SingleController extends \libs\Controller
             $this->view->data['errors'] = $validation->getErrors();
         }
 
+        $this->setViewData($id, $newsModel, $commentsModel);
+    }
+
+    private function setViewData($id, $newsModel, $commentsModel)
+    {
         $this->view->data['news'] = $newsModel->getById($id)->getResults();
         $this->view->data['comments'] = $commentsModel->getCommentsByNewsId($id)->getResults();
-        $this->view->pageTitle = 'SingleNews';
         $this->view->token = \libs\Session::setToken();
+        $this->view->pageTitle = 'SingleNews';
         $this->view->render();
     }
 }

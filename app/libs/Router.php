@@ -33,6 +33,26 @@ class Router
                     'action' => 'comment'
                 ]
             ],
+            'dashboard' => [
+                'GET' => [
+                    'controller' => 'DashboardController',
+                    'action' => 'showPage'
+                ],
+                'POST' => [
+                    'controller' => 'DashboardController',
+                    'action' => 'login'
+                ]
+            ],
+            'addnews' => [
+                'GET' => [
+                    'controller' => 'AddnewsController',
+                    'action' => 'showPage'
+                ],
+                'POST' => [
+                    'controller' => 'AddnewsController',
+                    'action' => 'addNews'
+                ]
+            ],
             'login' => [
                 'GET' => [
                     'controller' => 'LoginController',

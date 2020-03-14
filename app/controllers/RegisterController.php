@@ -7,11 +7,7 @@ class RegisterController extends \libs\Controller
     public function showRegisterForm()
     {
         $this->viewObj('register\register');
-        $this->view->pageTitle = 'Register';
-        $this->view->token = \libs\Session::setToken();
-        $this->view->data['username'] = \libs\Validation::getInputValue('username');
-        $this->view->data['email'] = \libs\Validation::getInputValue('email');
-        $this->view->render();
+        $this->setViewData();
     }
 
     public function register()
@@ -47,9 +43,14 @@ class RegisterController extends \libs\Controller
             $this->view->data['errors'] = $validation->getErrors();
         }
 
+        $this->setViewData();
+    }
+
+    private function setViewData()
+    {
+        $this->view->pageTitle = 'Register';
         $this->view->data['username'] = \libs\Validation::getInputValue('username');
         $this->view->data['email'] = \libs\Validation::getInputValue('email');
-        $this->view->pageTitle = 'Register';
         $this->view->token = \libs\Session::setToken();
         $this->view->render();
     }

@@ -6,6 +6,7 @@ class News extends \libs\Database
 {
     const TABLENAME = 'news';
     const PRIMARY_KEY = 'news_id';
+    const AUTHOR = 'author';
     const TITLE = 'title';
     const TEXT = 'text';
     const CATEGORY = 'category';
@@ -13,6 +14,11 @@ class News extends \libs\Database
     public function getNews()
     {
         return $this->select_or_delete('SELECT *', self::TABLENAME);
+    }
+
+    public function addNews($data)
+    {
+        $this->add(self::TABLENAME, $data);
     }
 
     public function getByTopic($category)
@@ -34,5 +40,10 @@ class News extends \libs\Database
     {
         $this->loadFile(MODELS, 'topics.txt');
         return $this->getResults();
+    }
+
+    public function deleteNews($conditions)
+    {
+        $this->select_or_delete('DELETE', self::TABLENAME, $conditions);
     }
 }

@@ -7,10 +7,7 @@ class LoginController extends \libs\Controller
     public function showLoginForm()
     {
         $this->viewObj('login\login');
-        $this->view->pageTitle = 'Login';
-        $this->view->token = \libs\Session::setToken();
-        $this->view->data['username'] = \libs\Validation::getInputValue('username');
-        $this->view->render();
+        $this->setViewData();
     }
 
     public function login()
@@ -43,15 +40,20 @@ class LoginController extends \libs\Controller
             header('location: ' . BASE_URL);
         }
 
-        $this->view->data['username'] = \libs\Validation::getInputValue('username');
-        $this->view->pageTitle = 'Login';
-        $this->view->token = \libs\Session::setToken();
-        $this->view->render();
+        $this->setViewData();
     }
 
     public function logout()
     {
         session_destroy();
         header('location: ' . BASE_URL);
+    }
+
+    private function setViewData()
+    {
+        $this->view->token = \libs\Session::setToken();
+        $this->view->data['username'] = \libs\Validation::getInputValue('username');
+        $this->view->pageTitle = 'Login';
+        $this->view->render();
     }
 }
