@@ -10,30 +10,30 @@ class App
     protected $action;
     protected $params = [];
 
-    public function __construct($request_method, $route)
+    public function __construct(string $request_method, string $route)
     {
         $this->request_method = $request_method;
         $this->route = $route;
-        $this->setController();
-        $this->setAction();
-        $this->setParams();
+        $this->controller = $this->getController();
+        $this->action = $this->getAction();
+        $this->params = $this->getParams();
     }
 
-    private function setController()
+    private function getController()
     {
         if (isset($this->route)) {
-            $this->controller = '\controllers\\' . Router::getRoute()[$this->route][$this->request_method]['controller'];
+            return '\controllers\\' . Router::getRoute($this->route, $this->request_method, 'controller');
         }
     }
 
-    private function setAction()
+    private function getAction()
     {
         if (isset($this->route)) {
-            $this->action = Router::getRoute()[$this->route][$this->request_method]['action'];
+            return Router::getRoute($this->route, $this->request_method, 'action');
         }
     }
 
-    private function setParams()
+    private function getParams()
     {
         $params = [];
         if (!empty($_GET)) {
@@ -43,7 +43,7 @@ class App
                 }
             }
         }
-        $this->params = $params;
+        return $params;
     }
 
     public function startApp()

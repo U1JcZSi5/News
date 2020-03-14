@@ -6,6 +6,7 @@ class View
 {
     public $fileName;
     public $data;
+    public $active = false;
 
     public function __construct($fileName, $data)
     {

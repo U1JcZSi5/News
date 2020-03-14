@@ -4,7 +4,7 @@ namespace libs;
 
 class Router
 {
-    public static function getRoute()
+    public static function getRoute(string $route, string $request_method, string $string)
     {
         $routes = [
             'home' => [
@@ -21,6 +21,16 @@ class Router
                 'POST' => [
                     'controller' => 'RegisterController',
                     'action' => 'register'
+                ]
+            ],
+            'single' => [
+                'GET' => [
+                    'controller' => 'SingleController',
+                    'action' => 'showNews'
+                ],
+                'POST' => [
+                    'controller' => 'SingleController',
+                    'action' => 'comment'
                 ]
             ],
             'login' => [
@@ -41,6 +51,6 @@ class Router
             ]
         ];
 
-        return $routes;
+        return $routes[$route][$request_method][$string];
     }
 }

@@ -45,9 +45,4 @@ class User extends \libs\Database
     {
         $this->update(self::TABLENAME, self::USERNAME, $username, $data);
     }
-
-    public function getResults()
-    {
-        return $this->results;
-    }
 }

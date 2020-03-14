@@ -23,11 +23,12 @@ class Database
         }
     }
 
-    protected function select_or_delete($action, $table, $conditions = [])
+    protected function select_or_delete($action, $table, array $conditions = [], string $order = '', $limit = '')
     {
         $sql = "{$action} FROM $table";
 
         if (empty($conditions)) {
+            $sql .= $order . $limit;
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute();
             $this->results = $stmt->fetchAll();
@@ -46,6 +47,7 @@ class Database
                 }
                 $i++;
             }
+            $sql .= $order . $limit;
 
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute($values);
@@ -96,5 +98,17 @@ class Database
         dd($sql);
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute($values);
+    }
+
+    public function loadFile($path, $fileName)
+    {
+        if (file_exists($path . $fileName)) {
+            $this->results = file($path . $fileName);
+        }
+    }
+
+    public function getResults()
+    {
+        return $this->results;
     }
 }

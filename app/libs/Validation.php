@@ -10,9 +10,9 @@ class Validation
 
     public function checkInput()
     {
-        if (isset($_POST['register_btn'])) {
+        if (isset($_POST['submit_btn'])) {
             foreach ($_POST as $item => $value) {
-                if (empty($value)) {
+                if (empty(trim($value))) {
                     $this->errors[] = 'You need to fill ' . $item;
                 }
             }

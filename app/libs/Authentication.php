@@ -30,15 +30,14 @@ class Authentication
         if (\libs\Session::sessionExists('username') && !empty(\libs\Session::sessionExists('username'))) {
             return true;
         }
+        $this->errors[] = 'You are not logged in';
         return false;
     }
 
     public function getLoggedInUser()
     {
-        if ($this->isLoggedIn()) {
-            if (!empty($this->userModel->getByUsername(\libs\Session::getSession('username')))) {
-                return $this->userModel->getByUsername(\libs\Session::getSession('username'))[0];
-            }
+        if (!empty($this->userModel->getByUsername(\libs\Session::getSession('username')))) {
+            return $this->userModel->getByUsername(\libs\Session::getSession('username'))[0];
         }
         return false;
     }

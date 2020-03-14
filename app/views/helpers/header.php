@@ -8,4 +8,4 @@
 </head>
 
 <body>
-    <?php include VIEWS . 'navbar.php'; ?>
+    <?php include VIEWS . 'helpers/navbar.php'; ?>
