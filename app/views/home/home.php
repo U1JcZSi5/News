@@ -2,10 +2,12 @@
 
 <?php if (!$this->active) : ?>
     <?php foreach ($this->data['news'] as $story) : ?>
+        <img style="height: 200px; width: 200px;" src="<?php echo IMAGES . $story->image ?>" alt="No image">
         <?php include VIEWS . 'helpers/shownews.php'; ?>
     <?php endforeach; ?>
 <?php else : ?>
     <?php foreach ($this->data['news'] as $story) : ?>
+        <img style="height: 200px; width: 200px;" src="<?php echo IMAGES . $story->image ?>" alt="No image">
         <?php include VIEWS . 'helpers/shownews.php'; ?>
     <?php endforeach; ?>
 <?php endif; ?>

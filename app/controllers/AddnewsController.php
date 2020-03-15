@@ -34,6 +34,8 @@ class AddnewsController extends \libs\Controller
         $text = $input['text'];
         $author = $input['author'];
         $category = $input['category'];
+        $image = $_FILES['image']['name'];
+        (move_uploaded_file($_FILES['image']['tmp_name'], ROOT . '/images/' . $image));
 
         $validation->checkInput();
         if ($authentication->isAdmin($authentication->getLoggedInUser()->username)) {
@@ -44,6 +46,7 @@ class AddnewsController extends \libs\Controller
                         $newsModel::TEXT => $text,
                         $newsModel::AUTHOR => $author,
                         $newsModel::CATEGORY => $category,
+                        $newsModel::IMAGE => $image,
                     ]);
                     header('location: ' . BASE_URL);
                 }

@@ -1,6 +1,7 @@
 <?php include VIEWS . 'helpers/header.php'; ?>
 
 <?php foreach ($this->data['news'] as $story) : ?>
+    <img style="height: 400px; width: 600px;" src="<?php echo IMAGES . $story->image ?>" alt="No image">
     <?php include VIEWS . 'helpers/shownews.php'; ?>
 <?php endforeach; ?>
 

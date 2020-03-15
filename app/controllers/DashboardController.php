@@ -13,6 +13,12 @@ class DashboardController extends \libs\Controller
         $newsModel = $this->modelObj('\models\News');
         $commentsModel = $this->modelObj('\models\Comments');
 
+        $news = $newsModel->getById($id)->getResults();
+
+        if ($news) {
+            $image = $news[0]->image;
+        }
+
         $authentication = new \libs\Authentication($userModel);
 
         if ($authentication->isLoggedIn()) {
@@ -24,6 +30,7 @@ class DashboardController extends \libs\Controller
                     $this->view->active = false;
                 } elseif ($list == 'news') {
                     if ($id) {
+                        unlink(ROOT . '\images\\' . $image);
                         $newsModel->deleteNews([$newsModel::PRIMARY_KEY => $id]);
                         $commentsModel->deleteCommentsByNewsId($id);
                     }

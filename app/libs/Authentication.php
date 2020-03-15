@@ -8,7 +8,7 @@ class Authentication
     private $userModel;
     private $errors = [];
 
-    public function __construct($userModel)
+    public function __construct(\models\User $userModel)
     {
         $this->userModel = $userModel;
     }

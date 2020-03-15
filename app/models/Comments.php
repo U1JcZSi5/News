@@ -12,7 +12,7 @@ class Comments extends \libs\Database
 
     public function getComments()
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME);
+        return $this->createQuery('SELECT *', self::TABLENAME);
     }
 
     public function addComment($data)
@@ -22,21 +22,21 @@ class Comments extends \libs\Database
 
     public function getCommentById($id)
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id])->getResults()[0];
+        return $this->createQuery('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id])->getResults()[0];
     }
 
     public function getCommentsByNewsId($id)
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME, [self::NEWS_ID => $id]);
+        return $this->createQuery('SELECT *', self::TABLENAME, [self::NEWS_ID => $id]);
     }
 
     public function deleteCommentsByNewsId($id)
     {
-        return $this->select_or_delete('DELETE', self::TABLENAME, [self::NEWS_ID => $id]);
+        return $this->createQuery('DELETE', self::TABLENAME, [self::NEWS_ID => $id]);
     }
 
     public function deleteComment($comment_id)
     {
-        $this->select_or_delete('DELETE', self::TABLENAME, [self::PRIMARY_KEY => $comment_id]);
+        $this->createQuery('DELETE', self::TABLENAME, [self::PRIMARY_KEY => $comment_id]);
     }
 }

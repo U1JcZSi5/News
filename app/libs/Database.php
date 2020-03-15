@@ -23,7 +23,7 @@ class Database
         }
     }
 
-    protected function select_or_delete($action, $table, array $conditions = [], string $order = '', $limit = '')
+    protected function createQuery($action, $table, array $conditions = [], string $order = '', $limit = '')
     {
         $sql = "{$action} FROM $table";
 

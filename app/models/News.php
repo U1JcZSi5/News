@@ -10,10 +10,11 @@ class News extends \libs\Database
     const TITLE = 'title';
     const TEXT = 'text';
     const CATEGORY = 'category';
+    const IMAGE = 'image';
 
     public function getNews()
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME);
+        return $this->createQuery('SELECT *', self::TABLENAME);
     }
 
     public function addNews($data)
@@ -23,17 +24,17 @@ class News extends \libs\Database
 
     public function getByTopic($category)
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME, [self::CATEGORY => $category]);
+        return $this->createQuery('SELECT *', self::TABLENAME, [self::CATEGORY => $category]);
     }
 
     public function getById($id)
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id]);
+        return $this->createQuery('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id]);
     }
 
     public function getLastFour()
     {
-        return $this->select_or_delete('SELECT *', self::TABLENAME, [], " ORDER BY date DESC", ' LIMIT 4');
+        return $this->createQuery('SELECT *', self::TABLENAME, [], " ORDER BY date DESC", ' LIMIT 4');
     }
 
     public function getTopics()
@@ -44,6 +45,6 @@ class News extends \libs\Database
 
     public function deleteNews($conditions)
     {
-        $this->select_or_delete('DELETE', self::TABLENAME, $conditions);
+        $this->createQuery('DELETE', self::TABLENAME, $conditions);
     }
 }
