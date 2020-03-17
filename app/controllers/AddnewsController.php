@@ -35,6 +35,10 @@ class AddnewsController extends \libs\Controller
         $author = $input['author'];
         $category = $input['category'];
         $image = $_FILES['image']['name'];
+        $imageName = uniqid(explode('.', $_FILES['image']['name'])[0]);
+        $imageExtention = explode('.', $_FILES['image']['name'])[1];
+        $image = $imageName . '.' . $imageExtention;
+
         (move_uploaded_file($_FILES['image']['tmp_name'], ROOT . '/images/' . $image));
 
         $validation->checkInput();

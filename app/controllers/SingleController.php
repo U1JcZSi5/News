@@ -14,11 +14,13 @@ class SingleController extends \libs\Controller
         $authentication = new \libs\Authentication($userModel);
         if ($comment_id) {
             if ($authentication->isLoggedIn()) {
-                if (
-                    \libs\Session::getSession('username') == $commentsModel->getCommentById($comment_id)->username
-                    || $authentication->isAdmin(\libs\Session::getSession('admin'))
-                ) {
-                    $commentsModel->deleteComment($comment_id);
+                if (!empty($commentsModel->getCommentById($comment_id)->getResults())) {
+                    if (
+                        \libs\Session::getSession('username') == $commentsModel->getCommentById($comment_id)->getResults()[0]->username
+                        || $authentication->isAdmin(\libs\Session::getSession('admin'))
+                    ) {
+                        $commentsModel->deleteComment($comment_id);
+                    }
                 }
             } else {
                 http_response_code(404);
@@ -66,6 +68,7 @@ class SingleController extends \libs\Controller
 
     private function setViewData($id, $newsModel, $commentsModel)
     {
+        $this->view->data['topics'] = $newsModel->getTopics();
         $this->view->data['news'] = $newsModel->getById($id)->getResults();
         $this->view->data['comments'] = $commentsModel->getCommentsByNewsId($id)->getResults();
         $this->view->token = \libs\Session::setToken();

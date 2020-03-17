@@ -32,9 +32,9 @@ class News extends \libs\Database
         return $this->createQuery('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id]);
     }
 
-    public function getLastFour()
+    public function getLastThree()
     {
-        return $this->createQuery('SELECT *', self::TABLENAME, [], " ORDER BY date DESC", ' LIMIT 4');
+        return $this->createQuery('SELECT *', self::TABLENAME, [], " ORDER BY date DESC", ' LIMIT 3');
     }
 
     public function getTopics()

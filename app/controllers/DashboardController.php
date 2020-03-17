@@ -24,11 +24,13 @@ class DashboardController extends \libs\Controller
         if ($authentication->isLoggedIn()) {
             if ($authentication->isAdmin($authentication->getLoggedInUser()->username)) {
                 if ($list == 'users') {
+                    $this->view->data['listTitle'] = 'Users';
                     if ($id) {
                         $userModel->deleteUser([$userModel::PRIMARY_KEY => $id]);
                     }
                     $this->view->active = false;
                 } elseif ($list == 'news') {
+                    $this->view->data['listTitle'] = 'News';
                     if ($id) {
                         unlink(ROOT . '\images\\' . $image);
                         $newsModel->deleteNews([$newsModel::PRIMARY_KEY => $id]);

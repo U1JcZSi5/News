@@ -7,6 +7,7 @@ class View
     public $fileName;
     public $data;
     public $active = false;
+    public $exists = false;
 
     public function __construct($fileName, $data)
     {

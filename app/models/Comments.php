@@ -22,7 +22,7 @@ class Comments extends \libs\Database
 
     public function getCommentById($id)
     {
-        return $this->createQuery('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id])->getResults()[0];
+        return $this->createQuery('SELECT *', self::TABLENAME, [self::PRIMARY_KEY => $id]);
     }
 
     public function getCommentsByNewsId($id)
