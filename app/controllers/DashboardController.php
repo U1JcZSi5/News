@@ -3,8 +3,9 @@
 namespace controllers;
 
 use libs\Authentication;
+use libs\Controller;
 
-class DashboardController extends \libs\Controller
+class DashboardController extends Controller
 {
     public function showPage($list = '', $id = '')
     {
@@ -19,7 +20,7 @@ class DashboardController extends \libs\Controller
             $image = $news[0]->image;
         }
 
-        $authentication = new \libs\Authentication($userModel);
+        $authentication = new Authentication($userModel);
 
         if ($authentication->isLoggedIn()) {
             if ($authentication->isAdmin($authentication->getLoggedInUser()->username)) {
@@ -40,7 +41,7 @@ class DashboardController extends \libs\Controller
                 }
             } else {
                 http_response_code(404);
-                include(VIEWS . 'error/error.php');
+                include VIEWS . 'error/error.php';
                 die();
             }
         }

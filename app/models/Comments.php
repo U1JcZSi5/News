@@ -2,7 +2,9 @@
 
 namespace models;
 
-class Comments extends \libs\Database
+use libs\Database;
+
+class Comments extends Database
 {
     const TABLENAME = 'comments';
     const PRIMARY_KEY = 'comments_id';

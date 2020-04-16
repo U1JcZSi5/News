@@ -2,7 +2,12 @@
 
 namespace controllers;
 
-class RegisterController extends \libs\Controller
+use libs\Authentication;
+use libs\Controller;
+use libs\Session;
+use libs\Validation;
+
+class RegisterController extends Controller
 {
     public function showRegisterForm()
     {
@@ -14,8 +19,8 @@ class RegisterController extends \libs\Controller
     {
         $userModel = $this->modelObj('\models\User');
         $this->viewObj('register\register');
-        $authentication = new \libs\Authentication($userModel);
-        $validation = new \libs\Validation;
+        $authentication = new Authentication($userModel);
+        $validation = new Validation;
 
         $input = $validation->escapeInput($_POST);
 
@@ -49,9 +54,9 @@ class RegisterController extends \libs\Controller
     private function setViewData()
     {
         $this->view->pageTitle = 'Register';
-        $this->view->data['username'] = \libs\Validation::getInputValue('username');
-        $this->view->data['email'] = \libs\Validation::getInputValue('email');
-        $this->view->token = \libs\Session::setToken();
+        $this->view->data['username'] = Validation::getInputValue('username');
+        $this->view->data['email'] = Validation::getInputValue('email');
+        $this->view->token = Session::setToken();
         $this->view->render();
     }
 }

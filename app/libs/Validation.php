@@ -41,10 +41,10 @@ class Validation
     public function isTokenValid()
     {
         if (
-            \libs\Session::sessionExists(self::TOKEN)
-            && \libs\Session::getSession(self::TOKEN) == $this->getInputValue(self::TOKEN)
+            Session::sessionExists(self::TOKEN)
+            && Session::getSession(self::TOKEN) == $this->getInputValue(self::TOKEN)
         ) {
-            \libs\Session::deleteSession(self::TOKEN);
+            Session::deleteSession(self::TOKEN);
             return true;
         }
         return false;

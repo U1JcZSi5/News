@@ -2,7 +2,9 @@
 
 namespace models;
 
-class News extends \libs\Database
+use libs\Database;
+
+class News extends Database
 {
     const TABLENAME = 'news';
     const PRIMARY_KEY = 'news_id';
@@ -34,7 +36,7 @@ class News extends \libs\Database
 
     public function getLastThree()
     {
-        return $this->createQuery('SELECT *', self::TABLENAME, [], " ORDER BY date DESC", ' LIMIT 3');
+        return $this->createQuery('SELECT *', self::TABLENAME, [], ' ORDER BY date DESC', ' LIMIT 3');
     }
 
     public function getTopics()

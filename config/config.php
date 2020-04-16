@@ -8,10 +8,10 @@ define('CONTROLLERS', ROOT . DS . 'app' . DS . 'controllers' . DS);
 define('MODELS', ROOT . DS . 'app' . DS . 'models' . DS);
 define('VIEWS', ROOT . DS . 'app' . DS . 'views' . DS);
 define('LIBS', ROOT . DS . 'app' . DS . 'libs' . DS);
-define('IMAGES', 'http://localhost/news/images/');
-define('BASE_URL', 'http://localhost/news/public/index.php?');
+define('IMAGES', 'http://192.168.0.14/news/images/');
+define('BASE_URL', 'http://192.168.0.14/news/public/index.php?');
 
-// namespaces need to be named same as folders classes are in 
+// namespaces need to be named same as folders classes are in
 function my_autoload($className)
 {
     $fileName = str_replace('\\', '/', $className) . '.php';

@@ -2,7 +2,12 @@
 
 namespace controllers;
 
-class LoginController extends \libs\Controller
+use libs\Authentication;
+use libs\Controller;
+use libs\Session;
+use libs\Validation;
+
+class LoginController extends Controller
 {
     public function showLoginForm()
     {
@@ -14,8 +19,8 @@ class LoginController extends \libs\Controller
     {
         $this->viewObj('login\login');
         $userModel = $this->modelObj('\models\User');
-        $authentication = new \libs\Authentication($userModel);
-        $validation = new \libs\Validation;
+        $authentication = new Authentication($userModel);
+        $validation = new Validation;
 
         $input = $validation->escapeInput($_POST);
 
@@ -32,11 +37,11 @@ class LoginController extends \libs\Controller
             $this->view->data['errors'] = $authentication->getErrors();
         } else {
             if ($authentication->isAdmin($username)) {
-                \libs\Session::setSession('admin', 'admin');
+                Session::setSession('admin', 'admin');
                 header('location: ' . BASE_URL);
             }
-            \libs\Session::setSession('username', $username);
-            \libs\Session::setSession('password', $password);
+            Session::setSession('username', $username);
+            Session::setSession('password', $password);
             header('location: ' . BASE_URL);
         }
 
@@ -51,8 +56,8 @@ class LoginController extends \libs\Controller
 
     private function setViewData()
     {
-        $this->view->token = \libs\Session::setToken();
-        $this->view->data['username'] = \libs\Validation::getInputValue('username');
+        $this->view->token = Session::setToken();
+        $this->view->data['username'] = Validation::getInputValue('username');
         $this->view->pageTitle = 'Login';
         $this->view->render();
     }

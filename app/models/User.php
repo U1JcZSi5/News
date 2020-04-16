@@ -2,7 +2,9 @@
 
 namespace models;
 
-class User extends \libs\Database
+use libs\Database;
+
+class User extends Database
 {
     const TABLENAME = 'users';
     const PRIMARY_KEY = 'user_id';

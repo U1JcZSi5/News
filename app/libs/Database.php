@@ -34,10 +34,10 @@ class Database
             $this->results = $stmt->fetchAll();
             return $this;
         } else {
-            #Creates an sql query based on conditions
+            // Creates an sql query based on conditions
 
             $i = 0;
-            $values = array();
+            $values = [];
             foreach ($conditions as $key => $value) {
                 $values[] = $value;
                 if ($i == 0) {
@@ -61,16 +61,16 @@ class Database
         $sql = "INSERT INTO $table (";
 
         $i = 1;
-        $placeholders = "(";
-        $values = array();
-        # Loop that creates and sql string and extracts values to be executed
+        $placeholders = '(';
+        $values = [];
+        // Loop that creates and sql string and extracts values to be executed
         foreach ($data as $key => $value) {
             $values[] = $value;
             if ($i < sizeof($data)) {
                 $sql = $sql . $key . ', ';
                 $placeholders = $placeholders . '?, ';
             } else {
-                $sql = $sql . $key . ")";
+                $sql = $sql . $key . ')';
                 $placeholders = $placeholders . '?)';
             }
             $i++;

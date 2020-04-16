@@ -2,7 +2,9 @@
 
 namespace controllers;
 
-class HomeController extends \libs\Controller
+use libs\Controller;
+
+class HomeController extends Controller
 {
     public function index($topic = '')
     {

@@ -2,7 +2,12 @@
 
 namespace controllers;
 
-class SingleController extends \libs\Controller
+use libs\Authentication;
+use libs\Controller;
+use libs\Session;
+use libs\Validation;
+
+class SingleController extends Controller
 {
     public function showNews($id = null, $comment_id = null)
     {
@@ -11,20 +16,20 @@ class SingleController extends \libs\Controller
         $commentsModel = $this->modelObj('\models\Comments');
         $userModel = $this->modelObj('\models\User');
 
-        $authentication = new \libs\Authentication($userModel);
+        $authentication = new Authentication($userModel);
         if ($comment_id) {
             if ($authentication->isLoggedIn()) {
                 if (!empty($commentsModel->getCommentById($comment_id)->getResults())) {
                     if (
-                        \libs\Session::getSession('username') == $commentsModel->getCommentById($comment_id)->getResults()[0]->username
-                        || $authentication->isAdmin(\libs\Session::getSession('admin'))
+                        Session::getSession('username') == $commentsModel->getCommentById($comment_id)->getResults()[0]->username
+                        || $authentication->isAdmin(Session::getSession('admin'))
                     ) {
                         $commentsModel->deleteComment($comment_id);
                     }
                 }
             } else {
                 http_response_code(404);
-                include(VIEWS . 'error/error.php');
+                include VIEWS . 'error/error.php';
                 die();
             }
         }
@@ -38,8 +43,8 @@ class SingleController extends \libs\Controller
         $newsModel = $this->modelObj('\models\News');
         $userModel = $this->modelObj('\models\User');
         $commentsModel = $this->modelObj('\models\Comments');
-        $validation = new \libs\Validation;
-        $authentication = new \libs\Authentication($userModel);
+        $validation = new Validation;
+        $authentication = new Authentication($userModel);
 
         $input = $validation->escapeInput($_POST);
 
@@ -71,7 +76,7 @@ class SingleController extends \libs\Controller
         $this->view->data['topics'] = $newsModel->getTopics();
         $this->view->data['news'] = $newsModel->getById($id)->getResults();
         $this->view->data['comments'] = $commentsModel->getCommentsByNewsId($id)->getResults();
-        $this->view->token = \libs\Session::setToken();
+        $this->view->token = Session::setToken();
         $this->view->pageTitle = 'SingleNews';
         $this->view->render();
     }
